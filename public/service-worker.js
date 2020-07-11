@@ -1,4 +1,4 @@
-const FILES_TO_CACHE = ["/", "/index.html", "index.js", "favicon.ico"];
+const FILES_TO_CACHE = ["/", "/index.html", "/index.js", "/favicon.ico", "/style.css"];
 
 const CACHE_NAME = "static-cache-v2";
 const DATA_CACHE_NAME = "data-cache-v1";
@@ -56,10 +56,9 @@ self.addEventListener("fetch", function(evt) {
 
     return;
 }
-event.respondWith(
-  caches.match(event.request).then(function(response) {
-    return response || fetch(event.request);
+evt.respondWith(
+  caches.match(evt.request).then(function(response) {
+    return response || fetch(evt.request);
   })
 );
 });
-
