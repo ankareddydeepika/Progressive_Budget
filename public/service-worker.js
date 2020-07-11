@@ -49,16 +49,14 @@ self.addEventListener("fetch", function(evt) {
           })
           .catch(err => {
             // Network request failed, try to get it from the cache.
-            return cache.match(evt.request);
+            return cache.match(evt.request).then(function(response) {
+              return response || fetch(evt.request);
+            });
           });
       }).catch(err => console.log(err))
     );
 
     return;
 }
-evt.respondWith(
-  caches.match(evt.request).then(function(response) {
-    return response || fetch(evt.request);
-  })
-);
+
 });
